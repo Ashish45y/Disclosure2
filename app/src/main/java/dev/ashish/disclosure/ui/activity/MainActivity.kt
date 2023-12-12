@@ -1,9 +1,10 @@
-package dev.ashish.disclosure
+package dev.ashish.disclosure.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import dev.ashish.disclosure.R
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
