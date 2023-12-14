@@ -7,6 +7,9 @@ import dagger.Module
 import dagger.Provides
 import dev.ashish.disclosure.data.repository.Repository
 import dev.ashish.disclosure.di.ActivityContext
+import dev.ashish.disclosure.ui.base.ViewModelProviderFactory
+import dev.ashish.disclosure.ui.topheadline.TopHeadlineAdapter
+import dev.ashish.disclosure.ui.topheadline.TopHeadlineViewModel
 
 @Module
 class ActivityModule(private val activity: AppCompatActivity) {

@@ -8,7 +8,6 @@ import dev.ashish.disclosure.ui.home.HomeFragment
 @FragmentScope
 @Component(dependencies = [ApplicationComponent::class], modules = [FragmentModule::class])
 interface FragmentComponent {
-
     fun inject(fragment: HomeFragment)
 
 }
