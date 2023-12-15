@@ -10,7 +10,7 @@ import dev.ashish.disclosure.data.model.Article
 import dev.ashish.disclosure.databinding.TopHeadLineBinding
 import javax.inject.Inject
 
-class TopHeadlineAdapter  @Inject constructor(private val articleList: MutableList<Article> = mutableListOf()) : RecyclerView.Adapter<TopHeadlineAdapter.DataViewHolder>() {
+class TopHeadlineAdapter(private val articleList: MutableList<Article> = mutableListOf()) : RecyclerView.Adapter<TopHeadlineAdapter.DataViewHolder>() {
     class DataViewHolder(private val binding: TopHeadLineBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(article: Article) {

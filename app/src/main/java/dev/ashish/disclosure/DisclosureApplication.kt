@@ -21,3 +21,4 @@ class DisclosureApplication : Application() {
         applicationComponent.inject(this)
     }
 }
+

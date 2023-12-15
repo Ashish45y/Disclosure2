@@ -1,5 +1,6 @@
 package dev.ashish.disclosure.ui.topheadline
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -78,14 +79,16 @@ class TopHeadLineFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun renderList(articleList: List<Article>) {
         adapter.addData(articleList)
         adapter.notifyDataSetChanged()
     }
 
     private fun injectDependencies() {
-        DaggerFragmentComponent.builder()
-            .applicationComponent((requireActivity().application as DisclosureApplication).applicationComponent)
+        DaggerFragmentComponent
+            .builder()
+            .applicationComponent((requireContext().applicationContext as DisclosureApplication).applicationComponent)
             .fragmentModule(FragmentModule(this))
             .build()
             .inject(this)
