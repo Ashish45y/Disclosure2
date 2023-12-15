@@ -2,6 +2,7 @@ package dev.ashish.disclosure
 
 import android.app.Application
 import dev.ashish.disclosure.di.component.ApplicationComponent
+import dev.ashish.disclosure.di.component.DaggerApplicationComponent
 import dev.ashish.disclosure.di.module.ApplicationModule
 
 class DisclosureApplication : Application() {

@@ -5,17 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import dev.ashish.disclosure.DisclosureApplication
-import dev.ashish.disclosure.R
 import dev.ashish.disclosure.data.model.Article
 import dev.ashish.disclosure.databinding.FragmentTopHeadLineBinding
-import dev.ashish.disclosure.di.module.ActivityModule
+import dev.ashish.disclosure.di.component.DaggerFragmentComponent
+import dev.ashish.disclosure.di.module.FragmentModule
 import dev.ashish.disclosure.ui.base.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -29,14 +28,14 @@ class TopHeadLineFragment : Fragment() {
 
    lateinit var topHeadLineBinding: FragmentTopHeadLineBinding
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-
        topHeadLineBinding =FragmentTopHeadLineBinding.inflate(layoutInflater, container, false)
+        injectDependencies()
+        setupUI()
+        setupObserver()
         return topHeadLineBinding.root
 
     }
@@ -61,6 +60,7 @@ class TopHeadLineFragment : Fragment() {
                             topHeadLineBinding.progressBar.visibility = View.GONE
                             renderList(it.data)
                             topHeadLineBinding.recyclerView.visibility = View.VISIBLE
+                            adapter.setData(it.data)
                         }
                         is UiState.Loading -> {
                             topHeadLineBinding.progressBar.visibility = View.VISIBLE
@@ -84,8 +84,10 @@ class TopHeadLineFragment : Fragment() {
     }
 
     private fun injectDependencies() {
-        DaggerActivityComponent.builder()
-            .applicationComponent((application as DisclosureApplication).applicationComponent)
-            .fragmentModule((this)).build().inject(this)
+        DaggerFragmentComponent.builder()
+            .applicationComponent((requireActivity().application as DisclosureApplication).applicationComponent)
+            .fragmentModule(FragmentModule(this))
+            .build()
+            .inject(this)
     }
 }

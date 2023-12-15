@@ -8,8 +8,8 @@ import dagger.Provides
 import dev.ashish.disclosure.data.repository.Repository
 import dev.ashish.disclosure.di.ActivityContext
 import dev.ashish.disclosure.ui.base.ViewModelProviderFactory
-import dev.ashish.disclosure.ui.topheadline.TopHeadlineAdapter
 import dev.ashish.disclosure.ui.topheadline.TopHeadlineViewModel
+
 
 @Module
 class ActivityModule(private val activity: AppCompatActivity) {
@@ -27,7 +27,4 @@ class ActivityModule(private val activity: AppCompatActivity) {
                 TopHeadlineViewModel(topHeadlineRepository)
             })[TopHeadlineViewModel::class.java]
     }
-    @Provides
-    fun provideTopHeadlineAdapter() = TopHeadlineAdapter(ArrayList())
-
 }

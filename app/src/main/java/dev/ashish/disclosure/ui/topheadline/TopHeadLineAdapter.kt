@@ -8,11 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import dev.ashish.disclosure.data.model.Article
 import dev.ashish.disclosure.databinding.TopHeadLineBinding
+import javax.inject.Inject
 
-class TopHeadlineAdapter(
-    private val articleList: ArrayList<Article>
-) : RecyclerView.Adapter<TopHeadlineAdapter.DataViewHolder>() {
-
+class TopHeadlineAdapter  @Inject constructor(private val articleList: MutableList<Article> = mutableListOf()) : RecyclerView.Adapter<TopHeadlineAdapter.DataViewHolder>() {
     class DataViewHolder(private val binding: TopHeadLineBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(article: Article) {
@@ -45,6 +43,13 @@ class TopHeadlineAdapter(
         holder.bind(articleList[position])
 
     fun addData(list: List<Article>) {
+        articleList.clear()
         articleList.addAll(list)
+        notifyDataSetChanged()
+    }
+    fun setData(newArticles: List<Article>) {
+        articleList.clear()
+        articleList.addAll(newArticles)
+        notifyDataSetChanged()
     }
 }
