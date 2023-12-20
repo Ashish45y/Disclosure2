@@ -23,34 +23,4 @@ class FragmentModule(private val fragment: Fragment) {
     @ApplicationContext
     @Provides
     fun provideApplicationContext(): Context = fragment.requireContext().applicationContext
-    @Provides
-    fun ArticleList(): List<Article> {
-        // You can provide the articles in this method
-        return emptyList()
-    }
-    @Provides
-    fun TopHeadlineAdapter(articleList: List<Article>): TopHeadlineAdapter {
-        return TopHeadlineAdapter(articleList.toMutableList())
-    }
-
-    @BaseUrl
-    @Provides
-    fun provideBaseUrl(): String = "https://newsapi.org/v2/"
-
-    @Provides
-    @FragmentScope
-    fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
-
-    @Provides
-    @FragmentScope
-    fun provideNetworkService(
-        @BaseUrl baseUrl: String,
-        gsonConverterFactory: GsonConverterFactory
-    ): NetworkService {
-        return Retrofit.Builder()
-            .baseUrl(baseUrl)
-            .addConverterFactory(gsonConverterFactory)
-            .build()
-            .create(NetworkService::class.java)
-    }
 }

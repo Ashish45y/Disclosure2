@@ -8,6 +8,7 @@ import dev.ashish.disclosure.data.repository.Repository
 import dev.ashish.disclosure.di.ApplicationContext
 import dev.ashish.disclosure.di.FragmentScope
 import dev.ashish.disclosure.di.module.ApplicationModule
+import dev.ashish.disclosure.ui.topheadline.TopHeadlineAdapter
 import javax.inject.Singleton
 
 @Singleton
@@ -15,5 +16,10 @@ import javax.inject.Singleton
 interface ApplicationComponent {
 
     fun inject(application: DisclosureApplication)
+    @ApplicationContext
+    fun getContext(): Context
+    fun getNetworkService() : NetworkService
+    fun getTopHeadLineAdapter() : TopHeadlineAdapter
+    fun getRepository() : Repository
 
 }

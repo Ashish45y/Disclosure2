@@ -9,13 +9,7 @@ import dev.ashish.disclosure.di.FragmentScope
 import dev.ashish.disclosure.di.module.FragmentModule
 import dev.ashish.disclosure.ui.topheadline.TopHeadLineFragment
 @FragmentScope
-@Component(modules = [FragmentModule::class])
+@Component(dependencies = [ApplicationComponent::class],modules = [FragmentModule::class])
 interface FragmentComponent {
     fun inject(topHeadLineFragment: TopHeadLineFragment)
-    @ApplicationContext
-    fun getContext(): Context
-
-    fun getNetworkService(): NetworkService
-
-    fun getTopHeadlineRepository(): Repository
 }
