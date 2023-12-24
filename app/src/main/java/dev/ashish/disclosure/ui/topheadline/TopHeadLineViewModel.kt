@@ -1,5 +1,6 @@
 package dev.ashish.disclosure.ui.topheadline
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dev.ashish.disclosure.data.model.Article
@@ -21,6 +22,7 @@ class TopHeadlineViewModel @Inject constructor(private val topHeadlineRepository
 
     init {
         fetchNews()
+        fetchNewsSource()
     }
 
     private fun fetchNews() {
@@ -33,4 +35,15 @@ class TopHeadlineViewModel @Inject constructor(private val topHeadlineRepository
                 }
         }
     }
+    private fun fetchNewsSource() {
+        viewModelScope.launch {
+            topHeadlineRepository.getNewsSources()
+                .catch { e ->
+                    _uiState.value = UiState.Error(e.toString())
+                }.collect {
+                    Log.d("Ashish", "fetchNewsSource: ${it.size}")
+                }
+        }
+    }
+
 }
