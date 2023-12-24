@@ -2,10 +2,10 @@ package dev.ashish.disclosure.ui.topheadline
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -27,7 +27,7 @@ class TopHeadLineFragment : Fragment() {
     @Inject
     lateinit var adapter: TopHeadlineAdapter
 
-   lateinit var topHeadLineBinding: FragmentTopHeadLineBinding
+   private lateinit var topHeadLineBinding: FragmentTopHeadLineBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

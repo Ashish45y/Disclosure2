@@ -6,9 +6,10 @@ import dagger.Provides
 import dev.ashish.disclosure.DisclosureApplication
 import dev.ashish.disclosure.data.api.NetworkService
 import dev.ashish.disclosure.data.model.Article
+import dev.ashish.disclosure.data.model.NewsSources
 import dev.ashish.disclosure.di.ApplicationContext
 import dev.ashish.disclosure.di.BaseUrl
-import dev.ashish.disclosure.di.FragmentScope
+import dev.ashish.disclosure.ui.newssource.NewsSourceAdaptor
 import dev.ashish.disclosure.ui.topheadline.TopHeadlineAdapter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -25,13 +26,22 @@ class ApplicationModule(private val application: DisclosureApplication) {
     @Provides
     @Singleton
     fun providesArticleList(): List<Article> {
-        // You can provide the articles in this method
         return emptyList()
     }
     @Provides
     @Singleton
     fun providesTopHeadlineAdapter(articleList: List<Article>): TopHeadlineAdapter {
         return TopHeadlineAdapter(articleList.toMutableList())
+    }
+    @Provides
+    @Singleton
+    fun provideNewsSourceList(): List<NewsSources>{
+        return emptyList()
+    }
+    @Provides
+    @Singleton
+    fun provideNewsSourceAdapter(newsSourceList: List<NewsSources>) : NewsSourceAdaptor{
+        return NewsSourceAdaptor(newsSourceList.toMutableList())
     }
     @BaseUrl
     @Provides

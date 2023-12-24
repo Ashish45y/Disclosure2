@@ -1,5 +1,6 @@
 package dev.ashish.disclosure.ui.topheadline
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import dev.ashish.disclosure.data.model.Article
 import dev.ashish.disclosure.databinding.TopHeadLineBinding
-import javax.inject.Inject
 
 class TopHeadlineAdapter(private val articleList: MutableList<Article> = mutableListOf()) : RecyclerView.Adapter<TopHeadlineAdapter.DataViewHolder>() {
     class DataViewHolder(private val binding: TopHeadLineBinding) :
@@ -27,7 +27,6 @@ class TopHeadlineAdapter(private val articleList: MutableList<Article> = mutable
             }
         }
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         DataViewHolder(
             TopHeadLineBinding.inflate(
@@ -42,11 +41,13 @@ class TopHeadlineAdapter(private val articleList: MutableList<Article> = mutable
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) =
         holder.bind(articleList[position])
 
+    @SuppressLint("NotifyDataSetChanged")
     fun addData(list: List<Article>) {
         articleList.clear()
         articleList.addAll(list)
         notifyDataSetChanged()
     }
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(newArticles: List<Article>) {
         articleList.clear()
         articleList.addAll(newArticles)
