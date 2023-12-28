@@ -7,7 +7,10 @@ import dev.ashish.disclosure.data.api.NetworkService
 import dev.ashish.disclosure.data.repository.Repository
 import dev.ashish.disclosure.di.ApplicationContext
 import dev.ashish.disclosure.di.module.ApplicationModule
+import dev.ashish.disclosure.ui.country.CountryAdapter
+import dev.ashish.disclosure.ui.language.LanguageAdapter
 import dev.ashish.disclosure.ui.newssource.NewsSourceAdaptor
+import dev.ashish.disclosure.ui.search.SearchAdapter
 import dev.ashish.disclosure.ui.topheadline.TopHeadlineAdapter
 import javax.inject.Singleton
 
@@ -22,5 +25,8 @@ interface ApplicationComponent {
     fun getTopHeadLineAdapter() : TopHeadlineAdapter
     fun getRepository() : Repository
     fun getNewsSourceAdapter() : NewsSourceAdaptor
+    fun getSearchAdapter() : SearchAdapter
+    fun getLanguageAdapter(): LanguageAdapter
+    fun getCountryAdapter(): CountryAdapter
 
 }
