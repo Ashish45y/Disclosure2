@@ -2,9 +2,9 @@ package dev.ashish.disclosure.ui.topheadline
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.ashish.disclosure.data.model.Article
 import dev.ashish.disclosure.data.repository.Repository
-import dev.ashish.disclosure.di.FragmentScope
 import dev.ashish.disclosure.ui.base.UiState
 import dev.ashish.disclosure.utils.AppConstant.COUNTRY
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@FragmentScope
+@HiltViewModel
 class TopHeadlineViewModel @Inject constructor(private val topHeadlineRepository: Repository) :
     ViewModel() {
 

@@ -3,6 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id ("kotlin-kapt")
     id ("kotlin-parcelize")
+    id ("com.google.dagger.hilt.android")
+
 
 }
 
@@ -62,7 +64,7 @@ dependencies {
     implementation ("android.arch.lifecycle:extensions:1.1.1")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation ("com.google.dagger:dagger:2.45")
-    kapt ("com.google.dagger:dagger-compiler:2.45")
     implementation ("androidx.browser:browser:1.7.0")
+    implementation ("com.google.dagger:hilt-android:2.44")
+    kapt ("com.google.dagger:hilt-compiler:2.44")
 }

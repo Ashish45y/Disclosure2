@@ -7,23 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import dev.ashish.disclosure.DisclosureApplication
+import dagger.hilt.android.AndroidEntryPoint
 import dev.ashish.disclosure.data.model.NewsSources
 import dev.ashish.disclosure.databinding.FragmentNewsSourceBinding
-import dev.ashish.disclosure.di.component.DaggerFragmentComponent
-import dev.ashish.disclosure.di.module.FragmentModule
 import dev.ashish.disclosure.ui.base.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+@AndroidEntryPoint
 class NewsSourceFragment : Fragment() {
     private lateinit var newsSource: FragmentNewsSourceBinding
 
-    @Inject
+
     lateinit var newsSourceViewModel: NewsSourceViewModel
 
     @Inject
@@ -31,14 +30,18 @@ class NewsSourceFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
         newsSource = FragmentNewsSourceBinding.inflate(layoutInflater, container, false)
-        injectDependencies()
+        setupViewModel()
         setupUI()
         setupObserver()
         return newsSource.root
+    }
+
+    private fun setupViewModel() {
+        newsSourceViewModel = ViewModelProvider(this)[NewsSourceViewModel::class.java]
     }
 
     private fun setupObserver() {
@@ -65,15 +68,6 @@ class NewsSourceFragment : Fragment() {
                 }
             }
         }
-    }
-
-    private fun injectDependencies() {
-        DaggerFragmentComponent
-            .builder()
-            .applicationComponent((requireContext().applicationContext as DisclosureApplication).applicationComponent)
-            .fragmentModule(FragmentModule(this))
-            .build()
-            .inject(this)
     }
 
     private fun setupUI() {

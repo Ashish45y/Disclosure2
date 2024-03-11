@@ -1,14 +1,13 @@
 package dev.ashish.disclosure.di.module
 
-import android.content.Context
 import dagger.Module
 import dagger.Provides
-import dev.ashish.disclosure.DisclosureApplication
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import dev.ashish.disclosure.data.api.NetworkService
 import dev.ashish.disclosure.data.model.Article
 import dev.ashish.disclosure.data.model.NewsSources
 import dev.ashish.disclosure.data.model.SearchResponse
-import dev.ashish.disclosure.di.ApplicationContext
 import dev.ashish.disclosure.di.BaseUrl
 import dev.ashish.disclosure.di.CountryListQualifier
 import dev.ashish.disclosure.di.LanguageListQualifier
@@ -23,13 +22,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-class ApplicationModule(private val application: DisclosureApplication) {
-
-    @ApplicationContext
-    @Provides
-    fun provideContext(): Context {
-        return application
-    }
+@InstallIn(SingletonComponent::class)
+class ApplicationModule{
     @Provides
     @Singleton
     fun providesArticleList(): List<Article> {

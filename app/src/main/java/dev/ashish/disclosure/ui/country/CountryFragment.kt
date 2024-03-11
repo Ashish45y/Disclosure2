@@ -8,36 +8,43 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import dev.ashish.disclosure.DisclosureApplication
+import dagger.hilt.android.AndroidEntryPoint
 import dev.ashish.disclosure.data.model.NewsSources
 import dev.ashish.disclosure.databinding.FragmentCountryBinding
-import dev.ashish.disclosure.di.component.DaggerFragmentComponent
-import dev.ashish.disclosure.di.module.FragmentModule
 import dev.ashish.disclosure.ui.base.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class CountryFragment : Fragment() {
-    lateinit var binding : FragmentCountryBinding
+
+    lateinit var binding: FragmentCountryBinding
+
     @Inject
     lateinit var adapter: CountryAdapter
-    @Inject
+
     lateinit var viewModel: CountryViewModel
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
-        binding =  FragmentCountryBinding.inflate(layoutInflater,container,false)
-        injectDependencies()
+        binding = FragmentCountryBinding.inflate(layoutInflater, container, false)
+        setupViewModel()
         setupUI()
         setupObserver()
         return binding.root
     }
+
+    private fun setupViewModel() {
+        viewModel = ViewModelProvider(this)[CountryViewModel::class.java]
+    }
+
     private fun setupObserver() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -56,14 +63,6 @@ class CountryFragment : Fragment() {
                 }
             }
         }
-    }
-    private fun injectDependencies() {
-        DaggerFragmentComponent
-            .builder()
-            .applicationComponent((requireContext().applicationContext as DisclosureApplication).applicationComponent)
-            .fragmentModule(FragmentModule(this))
-            .build()
-            .inject(this)
     }
 
     private fun setupUI() {

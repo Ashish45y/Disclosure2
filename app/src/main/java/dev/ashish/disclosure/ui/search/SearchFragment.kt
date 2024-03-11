@@ -4,44 +4,49 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import dev.ashish.disclosure.DisclosureApplication
+import dagger.hilt.android.AndroidEntryPoint
 import dev.ashish.disclosure.data.model.SearchResponse
 import dev.ashish.disclosure.databinding.FragmentSearchBinding
-import dev.ashish.disclosure.di.component.DaggerFragmentComponent
-import dev.ashish.disclosure.di.module.FragmentModule
 import dev.ashish.disclosure.ui.base.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
+
     @Inject
     lateinit var searchAdapter: SearchAdapter
 
-    @Inject
     lateinit var searchViewModel: SearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         // Inflate the layout for this fragment
-        binding =  FragmentSearchBinding.inflate(layoutInflater,container,false)
-        injectDependencies()
+        binding = FragmentSearchBinding.inflate(layoutInflater, container, false)
+        setupViewModel()
         setupUI()
         setupObserver()
         return binding.root
 
     }
+
+    private fun setupViewModel() {
+        searchViewModel = ViewModelProvider(this)[SearchViewModel::class.java]
+    }
+
     private fun setupObserver() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -53,12 +58,14 @@ class SearchFragment : Fragment() {
                             binding.rvSearch.visibility = View.VISIBLE
                             searchAdapter.setData(it.data)
                         }
+
                         else -> {}
                     }
                 }
             }
         }
     }
+
     private fun setupUI() {
         val recyclerView = binding.rvSearch
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -70,16 +77,16 @@ class SearchFragment : Fragment() {
         )
         recyclerView.adapter = searchAdapter
 
-        binding.editText.addTextChangedListener(object :TextWatcher{
+        binding.editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 return
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-               if (s?.length!! >=2) {
-                   // just hit the api here and call the function where you can update the updater
-                   searchViewModel.performSearch(s.toString())
-               }
+                if (s?.length!! >= 2) {
+                    // just hit the api here and call the function where you can update the updater
+                    searchViewModel.performSearch(s.toString())
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -95,14 +102,4 @@ class SearchFragment : Fragment() {
         searchAdapter.addData(articleList)
         searchAdapter.notifyDataSetChanged()
     }
-    private fun injectDependencies() {
-        DaggerFragmentComponent
-            .builder()
-            .applicationComponent((requireContext().applicationContext as DisclosureApplication).applicationComponent)
-            .fragmentModule(FragmentModule(this))
-            .build()
-            .inject(this)
-    }
-
-
 }

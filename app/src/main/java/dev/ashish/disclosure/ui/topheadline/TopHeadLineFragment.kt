@@ -7,39 +7,44 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import dev.ashish.disclosure.DisclosureApplication
+import dagger.hilt.android.AndroidEntryPoint
 import dev.ashish.disclosure.data.model.Article
 import dev.ashish.disclosure.databinding.FragmentTopHeadLineBinding
-import dev.ashish.disclosure.di.component.DaggerFragmentComponent
-import dev.ashish.disclosure.di.module.FragmentModule
 import dev.ashish.disclosure.ui.base.UiState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class TopHeadLineFragment : Fragment() {
-    @Inject
+
     lateinit var newsListViewModel: TopHeadlineViewModel
 
     @Inject
     lateinit var adapter: TopHeadlineAdapter
 
-   private lateinit var topHeadLineBinding: FragmentTopHeadLineBinding
+    private lateinit var topHeadLineBinding: FragmentTopHeadLineBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
-       topHeadLineBinding =FragmentTopHeadLineBinding.inflate(layoutInflater, container, false)
-        injectDependencies()
+        topHeadLineBinding = FragmentTopHeadLineBinding.inflate(layoutInflater, container, false)
+        setupViewModel()
         setupUI()
         setupObserver()
         return topHeadLineBinding.root
 
     }
+
+    private fun setupViewModel() {
+        newsListViewModel = ViewModelProvider(this)[TopHeadlineViewModel::class.java]
+    }
+
     private fun setupUI() {
         val recyclerView = topHeadLineBinding.recyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -63,15 +68,17 @@ class TopHeadLineFragment : Fragment() {
                             topHeadLineBinding.recyclerView.visibility = View.VISIBLE
                             adapter.setData(it.data)
                         }
+
                         is UiState.Loading -> {
                             topHeadLineBinding.progressBar.visibility = View.VISIBLE
                             topHeadLineBinding.recyclerView.visibility = View.GONE
                         }
+
                         is UiState.Error -> {
                             //Handle Error
                             topHeadLineBinding.progressBar.visibility = View.GONE
-                           // Toast.makeText(this@TopHeadlineActivi, it.message, Toast.LENGTH_LONG)
-                               // .show()
+                            // Toast.makeText(this@TopHeadlineActivi, it.message, Toast.LENGTH_LONG)
+                            // .show()
                         }
                     }
                 }
@@ -85,12 +92,4 @@ class TopHeadLineFragment : Fragment() {
         adapter.notifyDataSetChanged()
     }
 
-    private fun injectDependencies() {
-        DaggerFragmentComponent
-            .builder()
-            .applicationComponent((requireContext().applicationContext as DisclosureApplication).applicationComponent)
-            .fragmentModule(FragmentModule(this))
-            .build()
-            .inject(this)
-    }
 }
