@@ -13,6 +13,6 @@
     <string name="news_sources">News Sources</string>
     <string name="language">Language</string>
     <string name="search">Search</string>
-    <string name="language_info">Language info</string>
+    <string name="language_info">Please Select any one Language..</string>
     <string name="search_news">Search News</string>
 </resources>

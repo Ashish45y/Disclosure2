@@ -22,11 +22,12 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.core.content.ContextCompat
+import dagger.hilt.android.AndroidEntryPoint
 import dev.ashish.disclosure.ui.activity.ui.theme.DisclosureTheme
 import dev.ashish.disclosure.ui.activity.ui.theme.gray40
 import dev.ashish.disclosure.ui.base.NewsNavHost
 import dev.ashish.disclosure.utils.AppConstant
-
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {

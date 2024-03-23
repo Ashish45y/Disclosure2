@@ -2,6 +2,7 @@ package dev.ashish.disclosure.ui.country
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.ashish.disclosure.data.model.Country
 import dev.ashish.disclosure.data.repository.CountryListRepository
 import dev.ashish.disclosure.ui.base.UiState
@@ -12,7 +13,7 @@ import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
+@HiltViewModel
 class CountryListViewModel @Inject constructor(
     private val countryListRepository: CountryListRepository,
     private val dispatcherProvider: DispatcherProvider,

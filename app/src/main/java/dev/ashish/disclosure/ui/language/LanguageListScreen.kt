@@ -67,7 +67,7 @@ fun LanguageListRoute(
                     }
                 )
                 val listLanguage: List<Language> = selectionState.selectedLanguage
-                if (listLanguage.size == 2) {
+                if (listLanguage.size == 1) {
                     val languageString = listLanguage.joinToString(",") { it.id.toString() }
                     onLanguageClick(languageString)
                 }

@@ -10,6 +10,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#FF0000</color>
     <color name="purple">#601A8F</color>
-    <color name="orage">#b14903</color>
-    <color name="pink">#bf01ac</color>
+    <color name="orage">#FABD07</color>
+    <color name="pink">#2196F3</color>
 </resources>
