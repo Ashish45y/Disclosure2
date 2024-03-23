@@ -7,13 +7,9 @@ import javax.inject.Qualifier
 annotation class BaseUrl
 
 @Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class LanguageListQualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class NetworkAPIKey
 
 @Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class NewsSourceListQualifier
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class CountryListQualifier
-
+@Retention(AnnotationRetention.RUNTIME)
+annotation class DatabaseName

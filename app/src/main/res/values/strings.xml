@@ -2,4 +2,17 @@
     <string name="app_name">Disclosure</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="loading">loading</string>
+    <string name="error_title">error_title</string>
+    <string name="try_again">try_again</string>
+    <string name="coutries">countries</string>
+    <string name="top_headlines">Top headlines</string>
+    <string name="offline_top_headlines">offline topheadlines</string>
+    <string name="pagination_top_headlines">Pagination top headlines</string>
+    <string name="news_sources">News Sources</string>
+    <string name="language">Language</string>
+    <string name="search">Search</string>
+    <string name="language_info">Language info</string>
+    <string name="search_news">Search News</string>
 </resources>
