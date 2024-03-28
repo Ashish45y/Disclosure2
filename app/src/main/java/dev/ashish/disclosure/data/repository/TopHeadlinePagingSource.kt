@@ -12,7 +12,6 @@ import dev.ashish.disclosure.utils.AppConstant.PAGE_SIZE
 @ViewModelScoped
 class TopHeadlinePagingSource(private val networkService: NetworkService) :
     PagingSource<Int, ApiArticle>() {
-
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ApiArticle> {
         return try {
             val page = params.key ?: INITIAL_PAGE

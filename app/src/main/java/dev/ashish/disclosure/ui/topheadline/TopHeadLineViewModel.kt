@@ -59,4 +59,5 @@ class TopHeadlineViewModel @Inject constructor(
                 }
         }
     }
+
 }

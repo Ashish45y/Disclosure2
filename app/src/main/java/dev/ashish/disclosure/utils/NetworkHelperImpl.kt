@@ -3,7 +3,7 @@ package dev.ashish.disclosure.utils
 import android.content.Context
 import android.net.ConnectivityManager
 
-class NetworkHelperImpl constructor(private val context: Context) : NetworkHelper {
+class NetworkHelperImpl(private val context: Context) : NetworkHelper {
 
     override fun isNetworkConnected(): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
